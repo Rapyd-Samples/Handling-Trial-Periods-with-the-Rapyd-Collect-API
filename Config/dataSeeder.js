@@ -17,7 +17,7 @@ const products = [
 
     },
     {
-        name: 'Product 2',
+        name: 'Product 3',
         type:'services',
         price: 90000,
         description: 'Pellentesque id nisi id ligula convallis scelerisque facilisis a dolor' 
@@ -35,7 +35,7 @@ products.forEach(product => {
 
         return new Promise((resolve, reject) => {
             pool.query(
-                `INSERT INTO products(rapyd_plan_id, name, type, price, description, created_at) 
+                `INSERT INTO products(rapyd_product_id, name, type, price, description, created_at) 
                 VALUES ($1, $2, $3, $4, $5, $6)`, 
                 [data.body.data.id, product.name, product.type, product.price, product.description, new Date(Date.now())],
                 (error, response) => {
