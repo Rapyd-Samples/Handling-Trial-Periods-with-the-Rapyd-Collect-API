@@ -42,10 +42,12 @@ $(document).ready(function() {
                 var html = ''
 
                 await fields.forEach(field => {
-                    html += `<div class="form-group">
-                                <label for="field${field.name}">${field.instructions}</label>
-                                <input type="text" class="form-control" id="field${field.name}" placeholder="${field.instructions}">
-                            </div>`
+                    if (field.instructions) {
+                        html += `<div class="form-group">
+                                    <label for="field${field.name}">${field.instructions}</label>
+                                    <input type="text" class="form-control" id="field${field.name}" placeholder="${field.instructions}">
+                                </div>`
+                    }
                 });
 
                 $("#paymentMethodFieldsDiv").append(html)
@@ -88,6 +90,8 @@ $(document).ready(function() {
                 $("#subscription-form").hide()
                 $("#confirmSubscriptionLoading").hide()
                 $("#subscription-created-success").show()
+
+                setTimeout(location.reload(), 5000);
 
             },
             error: function (data, textStatus, errorMessage) {

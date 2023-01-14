@@ -60,14 +60,14 @@ class rapydAPICalls{
 
     static async subscribe(body){
         
-        var sucscription;
+        var subscription;
         await makeRequest('POST', `/v1/payments/subscriptions`, body).then((data)=>{
 
-            sucscription = data
+            subscription = data
 
         }).catch((error) => console.log(error))
 
-        return sucscription.body
+        return subscription.body
 
     }
 

@@ -24,7 +24,7 @@ class subscriptionController{
 
         const getRequiredFields = await rapydAPICalls.getRequiredFields(req.body.payment_method);
 
-        return res.json({status: 200, message: 'action succesful', data: getRequiredFields});
+        return res.json({status: 200, message: 'action successful', data: getRequiredFields});
 
     }
 
@@ -62,7 +62,7 @@ class subscriptionController{
             const customerDetailsResponse = await rapydAPICalls.createCustomerProfile(customerDetails);
 
             if (customerDetailsResponse.status.status == 'SUCCESS') {
-                console.log('customerDetailsResponse: ', customerDetailsResponse.data)
+                // console.log('customerDetailsResponse: ', customerDetailsResponse.data)
 
                 const planDetails = {
                     currency: 'USD',
@@ -77,7 +77,7 @@ class subscriptionController{
                 const planDetailsResponse = await rapydAPICalls.createPlan(planDetails);
 
                 if (customerDetailsResponse.status.status == 'SUCCESS') {
-                    console.log('planDetailsResponse: ', planDetailsResponse.data)
+                    // console.log('planDetailsResponse: ', planDetailsResponse.data)
 
                     const subscriptionDetails = {
                         customer: customerDetailsResponse.data.id,
@@ -106,7 +106,7 @@ class subscriptionController{
                     const subscriptionResponse = await rapydAPICalls.subscribe(subscriptionDetails);
 
                     if (subscriptionResponse.status.status == 'SUCCESS') {
-                        console.log('subscriptionResponse: ', subscriptionResponse.data)
+                        // console.log('subscriptionResponse: ', subscriptionResponse.data)
 
                         const subscriptionInDbDetails = {
                             customer_id: createCustomerInDB.response.rows[0].id,
@@ -155,13 +155,13 @@ class subscriptionController{
         const checkSubscription = await DBQueries.getSubscriptionId(req.body.customer_email);
 
         if (checkSubscription.length == 0) {
-            return res.status(400).json({status: 400, message: 'You presently do not have a subscrition'});
+            return res.status(400).json({status: 400, message: 'You presently do not have a subscription'});
         }
 
         const cancelResponse = await rapydAPICalls.cancelSubscription(checkSubscription[0].rapyd_sub_id);
 
         if (cancelResponse.status.status == 'SUCCESS') {
-            console.log(cancelResponse)
+            // console.log(cancelResponse)
             return res.json({status: 200, message: 'action successful'});
         }
         
